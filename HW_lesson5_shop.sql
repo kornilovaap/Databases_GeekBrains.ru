@@ -22,8 +22,8 @@ CREATE TABLE users_hw (
     ('Roma', '08.10.2020 15:08', '11.10.2020 20:10'),
     ('Ivan', '07.10.2020 15:07', '12.10.2020 22:10');
 -- 2. 
-UPDATE users set created_at=STR_TO_DATE(created_at, '%d.%m.%Y %H:%i'), updated_at=STR_TO_DATE(updated_at, '%d.%m.%Y %H:%i');
-ALTER TABLE users MODIFY created_at DATETIME, MODIFY updated_at DATETIME;
+UPDATE users_hw set created_at = STR_TO_DATE(created_at, '%d.%m.%Y %H:%i'), updated_at=STR_TO_DATE(updated_at, '%d.%m.%Y %H:%i');
+ALTER TABLE users_hw MODIFY created_at DATETIME, MODIFY updated_at DATETIME;
 
 
 /*В таблице складских запасов storehouses_products в поле value могут встречаться самые разные цифры: 0, если товар закончился и выше нуля, если на складе имеются запасы. Необходимо отсортировать записи таким образом, чтобы они выводились в порядке увеличения значения value. Однако нулевые запасы должны выводиться в конце, после всех */
