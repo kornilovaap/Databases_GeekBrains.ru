@@ -1,4 +1,14 @@
 /*Пусть задан некоторый пользователь. Из всех друзей этого пользователя найдите человека, который больше всех общался с нашим пользователем.*/
+SELECT  
+	id,
+    from_user_id,
+    to_user_id,
+    group_concat(to_user_id) as a,
+    count(from_user_id) as b
+    
+FROM vk.messages
+group by from_user_id
+order by b desc;
 
 
 /*Подсчитать общее количество лайков, которые получили 10 самых молодых пользователей.*/
