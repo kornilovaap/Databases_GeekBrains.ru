@@ -7,7 +7,20 @@
 	where to_user_id=1
 	group by from_user_id;
 -- находим среди всех сообщений сообщения от друзей
-	НЕ ПОНИМАЮ, КАК ЭТО СДЕЛАТЬ
+	НЕ ПОНИМАЮ, КАК ЭТО ДОДЕЛАТЬ
+
+
+--Попробовала вот такой вариант, но выдает неверное решение, включая тех, кто не является другом id=1
+select m.from_user_id, m.to_user_id, m.text
+from messages m, friend_requests f
+where 
+   f.status=1
+   and (m.from_user_id=1 or m.to_user_id=1)
+   and (f.from_user_id=1 or f.to_user_id=1)
+group by m.from_user_id;
+
+
+
 
 
 /*Подсчитать общее количество лайков, которые получили 10 самых молодых пользователей.*/
