@@ -32,7 +32,13 @@
 
 	 
 /*Найти 10 пользователей, которые проявляют наименьшую активность в использовании социальной сети.*/
+-- кто меньше всех писал
 	select id, count(*) as count from messages
 	group by from_user_id
+	order by count
+	limit 10;
+-- кто меньше всех выкладывал медиа
+	select user_id, count(*) as count from media
+	group by user_id
 	order by count
 	limit 10;
