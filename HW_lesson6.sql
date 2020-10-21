@@ -10,14 +10,14 @@
 	НЕ ПОНИМАЮ, КАК ЭТО ДОДЕЛАТЬ
 
 
---Попробовала вот такой вариант, но выдает неверное решение, включая тех, кто не является другом id=1
-select m.from_user_id, m.to_user_id, m.text
-from messages m, friend_requests f
+--Попробовала вот такой вариант, но...
+SELECT f.status, m.from_user_id, m.to_user_id, m.text 
+FROM friend_requests f inner join  messages m
+on f.to_user_id=m.from_user_id -- ...не понимаю, что с чем тут связывать, но вывдит всё равно верно
 where 
-   f.status=1
-   and (m.from_user_id=1 or m.to_user_id=1)
-   and (f.from_user_id=1 or f.to_user_id=1)
-group by m.from_user_id;
+    (f.from_user_id=1  or f.to_user_id=1)
+    and f.status=1 
+    and (m.to_user_id=1 or m.from_user_id=1);
 
 
 
