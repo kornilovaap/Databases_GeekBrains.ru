@@ -2,9 +2,10 @@
 -- нашли всех друзей случайного пользователя id=1
 	SELECT * FROM vk.friend_requests
 	where status=1 and (from_user_id=1 or to_user_id=1);
--- находим ве сообщения этому пользователю id=1
-	SELECT * FROM messages
-	where from_user_id=1 or to_user_id=1;
+-- находим всех, кто писал сообщения пользователю id=1 и смотрим количесвто этих сообщений
+	SELECT from_user_id, count(*) FROM messages
+	where to_user_id=1
+	group by from_user_id;
 -- находим среди всех сообщений сообщения от друзей
 	НЕ ПОНИМАЮ, КАК ЭТО СДЕЛАТЬ
 
