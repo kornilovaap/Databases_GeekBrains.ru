@@ -30,6 +30,7 @@ where
     and (f.from_user_id=2  or f.to_user_id=2) 
     and (m.to_user_id=2 or m.from_user_id=2);
 
+group by m.text -- так хотя бы меньше строчек
 
 
 
