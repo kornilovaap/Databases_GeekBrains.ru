@@ -10,14 +10,26 @@
 	НЕ ПОНИМАЮ, КАК ЭТО ДОДЕЛАТЬ
 
 
---Попробовала вот такой вариант, но...
-SELECT f.status, m.from_user_id, m.to_user_id, m.text 
-FROM friend_requests f inner join  messages m
-on f.to_user_id=m.from_user_id -- ...не понимаю, что с чем тут связывать, но вывдит всё равно верно
+--Попробовала вот такой вариант, но не понимаю, почему он не делает NULL, а делает как "таблицу умножения"
+SELECT 
+	f.from_user_id as f_from, 
+  	f.to_user_id as f_to,
+  	f.status,
+	m.from_user_id as m_from, 
+	m.to_user_id as m_to, 
+	m.text 
+FROM friend_requests f 
+inner join  messages m on (
+    m.from_user_id =f.from_user_id or
+    m.from_user_id =f.to_user_id or
+    m.to_user_id =f.from_user_id or
+    m.to_user_id =f.to_user_id)
+
 where 
-    (f.from_user_id=1  or f.to_user_id=1)
-    and f.status=1 
-    and (m.to_user_id=1 or m.from_user_id=1);
+    f.status=1 
+    and (f.from_user_id=2  or f.to_user_id=2) 
+    and (m.to_user_id=2 or m.from_user_id=2);
+
 
 
 
