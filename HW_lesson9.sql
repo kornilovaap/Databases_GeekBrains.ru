@@ -10,7 +10,7 @@
 
 /*2. Создайте представление, которое выводит название name товарной позиции из таблицы products и соответствующее название каталога name из таблицы catalogs.*/
 create view name as 
-	select p.`name` as `Товар`, p.`catalog_id`, c.`name` as `Каталог` 
+  select p.`name` as `Товар`, p.`catalog_id`, c.`name` as `Каталог` 
   from products p
   inner join catalogs c
   on p.catalog_id=c.id;
