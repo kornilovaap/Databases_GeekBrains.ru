@@ -36,7 +36,10 @@ FROM
 
 /*4.Пусть имеется любая таблица с календарным полем created_at. 
 Создайте запрос, который удаляет устаревшие записи из таблицы, оставляя только 5 самых свежих записей.*/
-
+	delete from employee
+	where start_date not in 
+	  (select start_date from (select * from employee order by start_date desc limit 5) as foo)
+	order by start_date desc;
 
 
 /*Практическое задание по теме “Администрирование MySQL” (эта тема изучается по вашему желанию)*/
