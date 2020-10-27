@@ -18,25 +18,25 @@
 /*3.Пусть имеется таблица с календарным полем created_at. 
 В ней размещены разряженые календарные записи за август 2018 года '2018-08-01', '2016-08-04', '2018-08-16' и 2018-08-17. 
 Составьте запрос, который выводит полный список дат за август, выставляя в соседнем поле значение 1, если дата присутствует в исходном таблице и 0, если она отсутствует.*/
-	SELECT 
-	time_period.selected_date AS `Дни августа`,
-   	(SELECT EXISTS(SELECT * FROM august WHERE `created_at` = `Дни августа`)) AS `0/1`
-	FROM
-	(SELECT v.* FROM 
-	(SELECT ADDDATE('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date FROM
-	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t0,
-	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t1,
-	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t2,
-	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t3,
-	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t4) v
-	  WHERE selected_date BETWEEN '2018-08-01' AND '2018-08-31') AS time_period;
+SELECT 
+time_period.selected_date AS `Дни августа`,
+(SELECT EXISTS(SELECT * FROM august WHERE `created_at` = `Дни августа`)) AS `0/1`
+FROM
+(SELECT v.* FROM 
+(SELECT ADDDATE('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date FROM
+(SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t0,
+(SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t1,
+(SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t2,
+(SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t3,
+(SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t4) v
+WHERE selected_date BETWEEN '2018-08-01' AND '2018-08-31') AS time_period;
 
 /*4.Пусть имеется любая таблица с календарным полем created_at. 
 Создайте запрос, который удаляет устаревшие записи из таблицы, оставляя только 5 самых свежих записей.*/
-	delete from employee
-	where start_date not in 
-	  (select start_date from (select * from employee order by start_date desc limit 5) as foo)
-	order by start_date desc;
+delete from employee
+where start_date not in 
+(select start_date from (select * from employee order by start_date desc limit 5) as foo)
+order by start_date desc;
 
 
 		       
@@ -66,12 +66,12 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS hello()
 CREATE PROCEDURE hello()
 BEGIN
-		CASE 
-		WHEN CURTIME() between '06:00:00' and '12:00:00' THEN SELECT 'Доброе утро';
-		WHEN CURTIME() between '12:00:01' and '18:00:00' THEN SELECT 'Добрый день';
-		WHEN CURTIME() between '18:00:01' and '00:00:00' THEN SELECT 'Добрый вечер';
-		ELSE SELECT 'Доброй ночи';
-		END CASE;
+CASE 
+WHEN CURTIME() between '06:00:00' and '12:00:00' THEN SELECT 'Доброе утро';
+WHEN CURTIME() between '12:00:01' and '18:00:00' THEN SELECT 'Добрый день';
+WHEN CURTIME() between '18:00:01' and '00:00:00' THEN SELECT 'Добрый вечер';
+ELSE SELECT 'Доброй ночи';
+END CASE;
 END
 
 delimiter ;
