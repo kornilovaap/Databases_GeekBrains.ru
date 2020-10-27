@@ -7,7 +7,6 @@
     where id=6;
   commit;
 
-
 /*2. Создайте представление, которое выводит название name товарной позиции из таблицы products и соответствующее название каталога name из таблицы catalogs.*/
 create view name as 
   select p.`name` as `Товар`, p.`catalog_id`, c.`name` as `Каталог` 
@@ -15,7 +14,6 @@ create view name as
   inner join catalogs c
   on p.catalog_id=c.id;
 select * from name
-
 
 /*3.Пусть имеется таблица с календарным полем created_at. 
 В ней размещены разряженые календарные записи за август 2018 года '2018-08-01', '2016-08-04', '2018-08-16' и 2018-08-17. 
@@ -33,7 +31,6 @@ FROM
 	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t4) v
 	  WHERE selected_date BETWEEN '2018-08-01' AND '2018-08-31') AS time_period;
 
-
 /*4.Пусть имеется любая таблица с календарным полем created_at. 
 Создайте запрос, который удаляет устаревшие записи из таблицы, оставляя только 5 самых свежих записей.*/
 	delete from employee
@@ -42,6 +39,7 @@ FROM
 	order by start_date desc;
 
 
+		       
 /*Практическое задание по теме “Администрирование MySQL”*/
 /*1. Создайте двух пользователей которые имеют доступ к базе данных shop. 
 Первому пользователю shop_read должны быть доступны только запросы на чтение данных, второму пользователю shop — любые операции в пределах базы данных shop.*/
@@ -50,14 +48,15 @@ CREATE USER 'user_two'@'localhost' IDENTIFIED WITH sha256_password BY 'pass_two'
 GRANT SELECT ON shop.* TO 'user_read'@'localhost';
 GRANT ALL ON shop.* TO 'user_two'@'localhost';
 GRANT GRANT OPTION ON shop.* TO 'user_two'@'localhost';
-		       
-
-/*2. (по желанию) Пусть имеется таблица accounts содержащая три столбца id, name, password, содержащие первичный ключ, имя пользователя и его пароль. 
+       
+/*2. Пусть имеется таблица accounts содержащая три столбца id, name, password, содержащие первичный ключ, имя пользователя и его пароль. 
 Создайте представление username таблицы accounts, предоставляющий доступ к столбца id и name. 
 Создайте пользователя user_read, который бы не имел доступа к таблице accounts, однако, мог бы извлекать записи из представления username.*/
-
-
-
+CREATE view username (id, name) AS SELECT id, name FROM accounts;		       
+CREATE user 'user_read'@'localhost' IDENTIFIED WITH sha256_password BY 'pass_read';
+GRANT SELECT ON shop.username TO 'user_read'@'localhost';
+		       
+		       
 
 /*Практическое задание по теме “Хранимые процедуры и функции, триггеры"*/
 /*1. Создайте хранимую функцию hello(), которая будет возвращать приветствие, в зависимости от текущего времени суток. 
