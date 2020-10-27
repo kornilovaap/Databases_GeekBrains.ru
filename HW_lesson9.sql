@@ -42,11 +42,15 @@ FROM
 	order by start_date desc;
 
 
-/*Практическое задание по теме “Администрирование MySQL” (эта тема изучается по вашему желанию)*/
+/*Практическое задание по теме “Администрирование MySQL”*/
 /*1. Создайте двух пользователей которые имеют доступ к базе данных shop. 
 Первому пользователю shop_read должны быть доступны только запросы на чтение данных, второму пользователю shop — любые операции в пределах базы данных shop.*/
-
-
+CREATE USER 'user_read'@'localhost' IDENTIFIED WITH sha256_password BY 'pass_read';;
+CREATE USER 'user_two'@'localhost' IDENTIFIED WITH sha256_password BY 'pass_two';
+GRANT SELECT ON shop.* TO 'user_read'@'localhost';
+GRANT ALL ON shop.* TO 'user_two'@'localhost';
+GRANT GRANT OPTION ON shop.* TO 'user_two'@'localhost';
+		       
 
 /*2. (по желанию) Пусть имеется таблица accounts содержащая три столбца id, name, password, содержащие первичный ключ, имя пользователя и его пароль. 
 Создайте представление username таблицы accounts, предоставляющий доступ к столбца id и name. 
