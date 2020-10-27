@@ -2,28 +2,28 @@
 /*1. В базе данных shop и sample присутствуют одни и те же таблицы, учебной базы данных. 
 Переместите запись id = 1 из таблицы shop.users в таблицу sample.users. Используйте транзакции.*/
   start transaction;
-    insert into sample.users 
-    select * from shop.users
-    where id=6;
+  insert into sample.users 
+  select * from shop.users
+  where id=6;
   commit;
 
 /*2. Создайте представление, которое выводит название name товарной позиции из таблицы products и соответствующее название каталога name из таблицы catalogs.*/
-create view name as 
+  create view name as 
   select p.`name` as `Товар`, p.`catalog_id`, c.`name` as `Каталог` 
   from products p
   inner join catalogs c
   on p.catalog_id=c.id;
-select * from name
+  select * from name
 
 /*3.Пусть имеется таблица с календарным полем created_at. 
 В ней размещены разряженые календарные записи за август 2018 года '2018-08-01', '2016-08-04', '2018-08-16' и 2018-08-17. 
 Составьте запрос, который выводит полный список дат за август, выставляя в соседнем поле значение 1, если дата присутствует в исходном таблице и 0, если она отсутствует.*/
-SELECT 
+	SELECT 
 	time_period.selected_date AS `Дни августа`,
    	(SELECT EXISTS(SELECT * FROM august WHERE `created_at` = `Дни августа`)) AS `0/1`
-FROM
+	FROM
 	(SELECT v.* FROM 
-	  (SELECT ADDDATE('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date FROM
+	(SELECT ADDDATE('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date FROM
 	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t0,
 	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t1,
 	   (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t2,
@@ -62,7 +62,20 @@ GRANT SELECT ON shop.username TO 'user_read'@'localhost';
 /*1. Создайте хранимую функцию hello(), которая будет возвращать приветствие, в зависимости от текущего времени суток. 
 С 6:00 до 12:00 функция должна возвращать фразу "Доброе утро", с 12:00 до 18:00 функция должна возвращать фразу "Добрый день", 
 с 18:00 до 00:00 — "Добрый вечер", с 00:00 до 6:00 — "Доброй ночи".*/
+DELIMITER //
+DROP PROCEDURE IF EXISTS hello()
+CREATE PROCEDURE hello()
+BEGIN
+		CASE 
+		WHEN CURTIME() between '06:00:00' and '12:00:00' THEN SELECT 'Доброе утро';
+		WHEN CURTIME() between '12:00:01' and '18:00:00' THEN SELECT 'Добрый день';
+		WHEN CURTIME() between '18:00:01' and '00:00:00' THEN SELECT 'Добрый вечер';
+		ELSE SELECT 'Доброй ночи';
+		END CASE;
+END
 
+delimiter ;
+call hello();
 
 /*2. В таблице products есть два текстовых поля: name с названием товара и description с его описанием. 
 Допустимо присутствие обоих полей или одно из них. Ситуация, когда оба поля принимают неопределенное значение NULL неприемлема.
