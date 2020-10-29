@@ -45,19 +45,22 @@ DELIMITER ;
 /*Создайте SQL-запрос, который помещает в таблицу users миллион записей.*/
 USE `shop`;
 DROP procedure IF EXISTS `insert_one_million`;
+
 DELIMITER $$
 USE `shop`$$
-CREATE PROCEDURE `insert_one_million` ()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_one_million`()
 BEGIN
- declare i int default 10;
- declare j int default 0;
- while i> 100 do
-	insert into `test` values(j, now());
-	set i =i-1;
-        set j=j+1;
- end while;
+	DECLARE i INT DEFAULT 1000000;
+	DECLARE j INT DEFAULT 1;
+	WHILE i > 0 DO
+		INSERT INTO test(name, created_at) VALUES ( j, NOW());
+		SET j = j + 1;
+		SET i = i - 1;
+	END WHILE;
 END$$
+
 DELIMITER ;
+
 				  
 				  
 /*В базе данных Redis подберите коллекцию для подсчета посещений с определенных IP-адресов*/
