@@ -14,8 +14,8 @@ DELIMITER $$
 USE `vk`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `shop`.`users_AFTER_INSERT` AFTER INSERT ON `users` FOR EACH ROW
 BEGIN
-	insert into `shop`.`logs` (apdate_at,tbl_name,id,description_name)
-    values (now(), `users`, new.id, new.name);
+  insert into `shop`.`logs` (apdate_at,tbl_name,id,description_name)
+  values (now(), `users`, new.id, new.name);
 END$$
 DELIMITER ;
 
@@ -25,8 +25,8 @@ DELIMITER $$
 USE `shop`$$
 CREATE DEFINER=`root`@`localhost` TRIGGER `catalogs_AFTER_INSERT` AFTER INSERT ON `catalogs` FOR EACH ROW 
 BEGIN
-insert into `shop`.`logs` (apdate_at, tbl_name, id, description_name)
-    values (now(), `catalogs`, new.id, new.name);
+  insert into `shop`.`logs` (apdate_at, tbl_name, id, description_name)
+  values (now(), `catalogs`, new.id, new.name);
 END$$
 DELIMITER ;
 
@@ -37,7 +37,7 @@ USE `shop`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `shop`.`products_AFTER_INSERT` AFTER INSERT ON `products` FOR EACH ROW
 BEGIN
  insert into `shop`.`logs` (apdate_at, tbl_name, id, description_name)
-    values (now(), `products`, new.id, new.name);
+ values (now(), `products`, new.id, new.name);
 END$$
 DELIMITER ;
 
@@ -50,15 +50,14 @@ DELIMITER $$
 USE `shop`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_one_million`()
 BEGIN
-	DECLARE i INT DEFAULT 1000000;
-	DECLARE j INT DEFAULT 1;
-	WHILE i > 0 DO
-		INSERT INTO test(name, created_at) VALUES ( j, NOW());
-		SET j = j + 1;
-		SET i = i - 1;
-	END WHILE;
+ DECLARE i INT DEFAULT 1000000;
+ DECLARE j INT DEFAULT 1;
+ WHILE i > 0 DO
+	INSERT INTO test(name, created_at) VALUES ( j, NOW());
+	SET j = j + 1;
+	SET i = i - 1;
+ END WHILE;
 END$$
-
 DELIMITER ;
 
 				  
@@ -70,3 +69,5 @@ DELIMITER ;
 
 
 /*Организуйте хранение категорий и товарных позиций учебной базы данных shop в СУБД MongoDB.*/
+						   
+						   
