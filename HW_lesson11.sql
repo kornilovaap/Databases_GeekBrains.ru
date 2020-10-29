@@ -72,5 +72,8 @@ get mail@mail.ru
 get name 
 
 /*Организуйте хранение категорий и товарных позиций учебной базы данных shop в СУБД MongoDB.*/
-						   
+db.shop.insert({category: 'Процессоры'})
+db.shop.insert({category: 'Мат. платы'})
+db.shop.update({category: 'Процессоры'}, {$set: { products:['пр1', 'пр2', 'пр3'] }})
+db.shop.update({category: 'Мат. платы'}, {$set: { products:['мп1', 'мп2', 'мп3'] }})						   
 						   
