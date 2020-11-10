@@ -59,3 +59,30 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`buisnese` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+--
+CREATE TABLE IF NOT EXISTS `bank_hw`.`account` (
+  `account_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `product_cd` varchar(10) NOT NULL,
+  `cust_id` int unsigned NOT NULL,
+  `open_date` date NOT NULL,
+  `close_date` date DEFAULT NULL,
+  `last_activity_date` date DEFAULT NULL,
+  `status` enum('ACTIVE','CLOSED','FROZEN') DEFAULT NULL,
+  `open_branch_id` smallint unsigned DEFAULT NULL,
+  `open_emp_id` smallint unsigned DEFAULT NULL,
+  `avail_balance` float(10,2) DEFAULT NULL,
+  `pending_balance` float(10,2) DEFAULT NULL,
+  PRIMARY KEY (`account_id`),
+  KEY `fk_product_cd` (`product_cd`),
+  KEY `fk_a_cust_id` (`cust_id`),
+  KEY `fk_a_branch_id` (`open_branch_id`),
+  KEY `fk_a_emp_id` (`open_emp_id`),
+  CONSTRAINT `fk_a_branch_id` FOREIGN KEY (`open_branch_id`) REFERENCES `branch` (`branch_id`),
+  CONSTRAINT `fk_a_cust_id` FOREIGN KEY (`cust_id`) REFERENCES `1_customer` (`cust_id`),
+  CONSTRAINT `fk_a_emp_id` FOREIGN KEY (`open_emp_id`) REFERENCES `employee` (`emp_id`),
+  CONSTRAINT `fk_product_cd` FOREIGN KEY (`product_cd`) REFERENCES `product` (`product_cd`)
+) 
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
