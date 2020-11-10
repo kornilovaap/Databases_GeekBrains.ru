@@ -1,168 +1,247 @@
--- MySQL Workbench Synchronization
--- Generated: 2020-11-10 14:38
--- Model: New Model
--- Version: 1.0
--- Project: Name of the project
--- Author: Silver
+/*
+ДЕЛАЮ БД БАНКА. ВСЕГО 10 ТАБЛИЦ: 1)КАСТОМЕР - ПОЛЬЗОВАТЕЛЬ, КОТОРЫЙ ЕСТЬ ДВУХ ВИДОВ 2)БИЗЕС - ЮР ЛИЦА И 3)ПЁРСОН - ФИЗ ЛИЦА. У БАНКА ЕСТЬ РАЗНЫЕ ТОЧКИ ОФИСА 4)БРЕНЧ И РАЗНЫЕ ДЕПАРТАМЕНТЫ 5)ДЕПАРТМЕНТС,
+В КОТОРОМ ЕСТЬ СОТРУДНИКИ 6)ИМПЛОИИ. В БАНКЕ ЕСТЬ РАЗНЫЕ ПРОДУКТЫ 7)ПРОДКТС И ТИПЫ ПРОДУКТОВ 8)ПРОДУКТ ТАЙП. КОНЕЧНО, У КАЖДОГО КЛИЕТА ЕСТЬ СВОЙ СЧЕТ 9)АККАУНТ, С КОТОРЫМ ПРОИСХОДЯТ 10)ТРАНЗАКШН.
+*/
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+-- ШАГ 1 - ЭТО ДАМП, СОЗДАННЫЙ ИЗ ДИАГРАММЫ
+LOCK TABLES `account` WRITE;
+/*!40000 ALTER TABLE `account` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+UNLOCK TABLES;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`individual` (
-  `cust_id` INT(10) UNSIGNED NOT NULL,
-  `fname` VARCHAR(45) NOT NULL,
-  `lname` VARCHAR(45) NOT NULL,
-  `birthday` DATE NOT NULL,
-  INDEX `fk_user_customers_idx` (`cust_id` ASC) VISIBLE,
-  PRIMARY KEY (`cust_id`),
-  CONSTRAINT `fk_user_customers`
-    FOREIGN KEY (`cust_id`)
-    REFERENCES `bank_hw`.`customers` (`id_customers`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+--
+-- Table structure for table `branch`
+--
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`customers` (
-  `id_customers` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `cust_type` ENUM('I', 'B') NOT NULL COMMENT 'Два вида клиентов в банке: I - физ лица и B - юр лица',
-  `city` VARCHAR(45) NOT NULL,
-  `adress` VARCHAR(245) NOT NULL,
-  `post_code` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`id_customers`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS `branch`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `branch` (
+  `branch_id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Отделение банка',
+  `name` varchar(45) NOT NULL,
+  `adress` varchar(245) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  PRIMARY KEY (`branch_id`),
+  UNIQUE KEY `branch_id_UNIQUE` (`branch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`buisnese` (
-  `cust_id` INT(10) UNSIGNED NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `telephon` VARCHAR(10) NOT NULL,
-  `incorp_date` DATE NOT NULL,
-  INDEX `fk_table3_customers1_idx` (`cust_id` ASC) VISIBLE,
-  PRIMARY KEY (`cust_id`),
-  CONSTRAINT `fk_table3_customers1`
-    FOREIGN KEY (`cust_id`)
-    REFERENCES `bank_hw`.`customers` (`id_customers`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+--
+-- Dumping data for table `branch`
+--
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`account` (
-  `account_id` INT(10) UNSIGNED NOT NULL,
-  `customers_id` INT(10) UNSIGNED NOT NULL,
-  `product_product_id` INT(11) NOT NULL,
-  `open_employee_id` INT(11) NOT NULL COMMENT 'айди сотрудника, который открыл',
-  `open_branch_id` INT(11) NOT NULL,
-  `open_date` DATE NOT NULL,
-  `close_date` DATE NULL DEFAULT NULL,
-  `last_activity_date` DATE NOT NULL,
-  `status` ENUM('ACTIVE', 'CLOSED', 'FROZEN') NOT NULL COMMENT 'три вида статуса: \'ACTIVE\', \'CLOSED\', \'FROZEN\'',
-  `balance` FLOAT(10,2) NULL DEFAULT NULL,
-  PRIMARY KEY (`account_id`),
-  INDEX `fk_account_customers1_idx` (`customers_id` ASC) VISIBLE,
-  INDEX `fk_account_product1_idx` (`product_product_id` ASC) VISIBLE,
-  INDEX `fk_account_employee1_idx` (`open_employee_id` ASC) VISIBLE,
-  INDEX `fk_account_branch1_idx` (`open_branch_id` ASC) VISIBLE,
-  CONSTRAINT `fk_account_customers1`
-    FOREIGN KEY (`customers_id`)
-    REFERENCES `bank_hw`.`customers` (`id_customers`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_account_product1`
-    FOREIGN KEY (`product_product_id`)
-    REFERENCES `bank_hw`.`product` (`product_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_account_employee1`
-    FOREIGN KEY (`open_employee_id`)
-    REFERENCES `bank_hw`.`employee` (`employee_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_account_branch1`
-    FOREIGN KEY (`open_branch_id`)
-    REFERENCES `bank_hw`.`branch` (`branch_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+LOCK TABLES `branch` WRITE;
+/*!40000 ALTER TABLE `branch` DISABLE KEYS */;
+/*!40000 ALTER TABLE `branch` ENABLE KEYS */;
+UNLOCK TABLES;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`product` (
-  `product_id` INT(11) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `product_type_id` INT(11) NOT NULL,
-  `date_offered` DATE NULL DEFAULT NULL,
-  `productcol` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`product_id`),
-  INDEX `fk_product_product_type1_idx` (`product_type_id` ASC) VISIBLE,
-  CONSTRAINT `fk_product_product_type1`
-    FOREIGN KEY (`product_type_id`)
-    REFERENCES `bank_hw`.`product_type` (`product_type_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+--
+-- Table structure for table `buisnese`
+--
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`product_type` (
-  `product_type_id` INT(11) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`product_type_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS `buisnese`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `buisnese` (
+  `cust_id_fk` int unsigned NOT NULL COMMENT 'юр лицо, подтип кастомер',
+  `name` varchar(45) NOT NULL,
+  `telephon` varchar(10) NOT NULL,
+  `incorp_date` date NOT NULL,
+  PRIMARY KEY (`cust_id_fk`),
+  UNIQUE KEY `telephon_UNIQUE` (`telephon`),
+  KEY `fk_table3_customers1_idx` (`cust_id_fk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`department` (
-  `dept_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`dept_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+--
+-- Dumping data for table `buisnese`
+--
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`employee` (
-  `employee_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `department_dept_id` INT(11) NOT NULL,
-  `fname` VARCHAR(45) NOT NULL,
-  `lname` VARCHAR(45) NOT NULL,
-  `start_date` DATE NOT NULL COMMENT 'дата начала работы',
-  `finish_date` DATE NULL DEFAULT NULL COMMENT 'дата окончания работы',
+LOCK TABLES `buisnese` WRITE;
+/*!40000 ALTER TABLE `buisnese` DISABLE KEYS */;
+/*!40000 ALTER TABLE `buisnese` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customers` (
+  `id_customers` int unsigned NOT NULL AUTO_INCREMENT,
+  `cust_type` enum('I','B') NOT NULL COMMENT 'Два вида клиентов в банке: I - физ лица и B - юр лица',
+  `city` varchar(45) NOT NULL,
+  `adress` varchar(245) NOT NULL,
+  `post_code` varchar(10) NOT NULL,
+  PRIMARY KEY (`id_customers`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `department`
+--
+
+DROP TABLE IF EXISTS `department`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `department` (
+  `dept_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`dept_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `department`
+--
+
+LOCK TABLES `department` WRITE;
+/*!40000 ALTER TABLE `department` DISABLE KEYS */;
+/*!40000 ALTER TABLE `department` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employee`
+--
+
+DROP TABLE IF EXISTS `employee`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `employee` (
+  `employee_id` int NOT NULL AUTO_INCREMENT,
+  `department_dept_id` int NOT NULL,
+  `fname` varchar(45) NOT NULL,
+  `lname` varchar(45) NOT NULL,
+  `start_date` date NOT NULL COMMENT 'дата начала работы',
+  `finish_date` date DEFAULT NULL COMMENT 'дата окончания работы',
   PRIMARY KEY (`employee_id`),
-  INDEX `fk_employee_department1_idx` (`department_dept_id` ASC) VISIBLE,
-  CONSTRAINT `fk_employee_department1`
-    FOREIGN KEY (`department_dept_id`)
-    REFERENCES `bank_hw`.`department` (`dept_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  KEY `fk_employee_department1_idx` (`department_dept_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`branch` (
-  `branch_id` INT(11) NOT NULL,
-  PRIMARY KEY (`branch_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+--
+-- Dumping data for table `employee`
+--
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`transaction` (
-  `account_id` INT(10) UNSIGNED NOT NULL,
-  INDEX `fk_transaction_account1_idx` (`account_id` ASC) VISIBLE,
-  CONSTRAINT `fk_transaction_account1`
-    FOREIGN KEY (`account_id`)
-    REFERENCES `bank_hw`.`account` (`account_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+LOCK TABLES `employee` WRITE;
+/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `person`
+--
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+DROP TABLE IF EXISTS `person`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `person` (
+  `cust_id` int unsigned NOT NULL,
+  `fname` varchar(45) NOT NULL,
+  `lname` varchar(45) NOT NULL,
+  `birthday` date NOT NULL,
+  PRIMARY KEY (`cust_id`),
+  KEY `fk_user_customers_idx` (`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `person`
+--
+
+LOCK TABLES `person` WRITE;
+/*!40000 ALTER TABLE `person` DISABLE KEYS */;
+/*!40000 ALTER TABLE `person` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product` (
+  `product_id` int NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `product_type_id` int NOT NULL,
+  `date_offered` date DEFAULT NULL,
+  `productcol` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`product_id`),
+  KEY `fk_product_product_type1_idx` (`product_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product`
+--
+
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_type`
+--
+
+DROP TABLE IF EXISTS `product_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_type` (
+  `product_type_id` int NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`product_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_type`
+--
+
+LOCK TABLES `product_type` WRITE;
+/*!40000 ALTER TABLE `product_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transaction`
+--
+
+DROP TABLE IF EXISTS `transaction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `transaction` (
+  `account_id` int unsigned NOT NULL,
+  KEY `fk_transaction_account1_idx` (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transaction`
+--
+
+LOCK TABLES `transaction` WRITE;
+/*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
