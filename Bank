@@ -1,7 +1,5 @@
-БД Банка
-
 -- MySQL Workbench Synchronization
--- Generated: 2020-11-10 13:28
+-- Generated: 2020-11-10 14:19
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -11,22 +9,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- создаем бд
-CREATE SCHEMA `bank_hw` DEFAULT CHARACTER SET utf8mb4;
-
--- таблица пользователей банка
-CREATE TABLE IF NOT EXISTS `bank_hw`.`customers` (
-  `id_customers` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `cust_type` ENUM('I', 'B') NOT NULL COMMENT 'Два вида клиентов в банке: I - физ лица и B - юр лица',
-  `city` VARCHAR(45) NOT NULL,
-  `adress` VARCHAR(245) NOT NULL,
-  `post_code` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`id_customers`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
--- таблица физ лиц
 CREATE TABLE IF NOT EXISTS `bank_hw`.`individual` (
   `cust_id` INT(10) UNSIGNED NOT NULL,
   `fname` VARCHAR(45) NOT NULL,
@@ -43,7 +25,17 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
--- таблица юрлиц
+CREATE TABLE IF NOT EXISTS `bank_hw`.`customers` (
+  `id_customers` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cust_type` ENUM('I', 'B') NOT NULL COMMENT 'Два вида клиентов в банке: I - физ лица и B - юр лица',
+  `city` VARCHAR(45) NOT NULL,
+  `adress` VARCHAR(245) NOT NULL,
+  `post_code` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id_customers`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
 CREATE TABLE IF NOT EXISTS `bank_hw`.`buisnese` (
   `cust_id` INT(10) UNSIGNED NOT NULL,
   `name` VARCHAR(45) NOT NULL,
@@ -60,29 +52,82 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
---
 CREATE TABLE IF NOT EXISTS `bank_hw`.`account` (
-  `account_id` int unsigned NOT NULL AUTO_INCREMENT,
-  `product_cd` varchar(10) NOT NULL,
-  `cust_id` int unsigned NOT NULL,
-  `open_date` date NOT NULL,
-  `close_date` date DEFAULT NULL,
-  `last_activity_date` date DEFAULT NULL,
-  `status` enum('ACTIVE','CLOSED','FROZEN') DEFAULT NULL,
-  `open_branch_id` smallint unsigned DEFAULT NULL,
-  `open_emp_id` smallint unsigned DEFAULT NULL,
-  `avail_balance` float(10,2) DEFAULT NULL,
-  `pending_balance` float(10,2) DEFAULT NULL,
+  `account_id` INT(10) UNSIGNED NOT NULL,
+  `customers_id` INT(10) UNSIGNED NOT NULL,
+  `product_product_id` INT(11) NOT NULL,
+  `open_date` DATE NOT NULL,
+  `close_date` DATE NULL DEFAULT NULL,
+  `last_activity_date` DATE NOT NULL,
+  `status` ENUM('ACTIVE', 'CLOSED', 'FROZEN') NOT NULL COMMENT 'три вида статуса: \'ACTIVE\', \'CLOSED\', \'FROZEN\'',
+  `balance` FLOAT(10,2) NULL DEFAULT NULL,
   PRIMARY KEY (`account_id`),
-  KEY `fk_product_cd` (`product_cd`),
-  KEY `fk_a_cust_id` (`cust_id`),
-  KEY `fk_a_branch_id` (`open_branch_id`),
-  KEY `fk_a_emp_id` (`open_emp_id`),
-  CONSTRAINT `fk_a_branch_id` FOREIGN KEY (`open_branch_id`) REFERENCES `branch` (`branch_id`),
-  CONSTRAINT `fk_a_cust_id` FOREIGN KEY (`cust_id`) REFERENCES `1_customer` (`cust_id`),
-  CONSTRAINT `fk_a_emp_id` FOREIGN KEY (`open_emp_id`) REFERENCES `employee` (`emp_id`),
-  CONSTRAINT `fk_product_cd` FOREIGN KEY (`product_cd`) REFERENCES `product` (`product_cd`)
-) 
+  INDEX `fk_account_customers1_idx` (`customers_id` ASC) VISIBLE,
+  INDEX `fk_account_product1_idx` (`product_product_id` ASC) VISIBLE,
+  CONSTRAINT `fk_account_customers1`
+    FOREIGN KEY (`customers_id`)
+    REFERENCES `bank_hw`.`customers` (`id_customers`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_account_product1`
+    FOREIGN KEY (`product_product_id`)
+    REFERENCES `bank_hw`.`product` (`product_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `bank_hw`.`product` (
+  `product_id` INT(11) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `product_type_id` INT(11) NOT NULL,
+  `date_offered` DATE NULL DEFAULT NULL,
+  `productcol` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`product_id`),
+  INDEX `fk_product_product_type1_idx` (`product_type_id` ASC) VISIBLE,
+  CONSTRAINT `fk_product_product_type1`
+    FOREIGN KEY (`product_type_id`)
+    REFERENCES `bank_hw`.`product_type` (`product_type_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `bank_hw`.`product_type` (
+  `product_type_id` INT(11) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`product_type_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `bank_hw`.`table7` (
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `bank_hw`.`table8` (
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `bank_hw`.`table9` (
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `bank_hw`.`table10` (
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
