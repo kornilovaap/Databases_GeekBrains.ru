@@ -4,6 +4,7 @@
 */
 
 -- ШАГ 1 - ЭТО ДАМП, СОЗДАННЫЙ ИЗ ДИАГРАММЫ
+-- вот ссылка на фото https://github.com/kornilovaap/Databases_GeekBrains/blob/master/%D0%B4%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.png
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
