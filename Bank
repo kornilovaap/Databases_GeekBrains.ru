@@ -1,0 +1,61 @@
+БД Банка
+
+-- MySQL Workbench Synchronization
+-- Generated: 2020-11-10 13:28
+-- Model: New Model
+-- Version: 1.0
+-- Project: Name of the project
+-- Author: Silver
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- создаем бд
+CREATE SCHEMA `bank_hw` DEFAULT CHARACTER SET utf8mb4;
+
+-- таблица пользователей банка
+CREATE TABLE IF NOT EXISTS `bank_hw`.`customers` (
+  `id_customers` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cust_type` ENUM('I', 'B') NOT NULL COMMENT 'Два вида клиентов в банке: I - физ лица и B - юр лица',
+  `city` VARCHAR(45) NOT NULL,
+  `adress` VARCHAR(245) NOT NULL,
+  `post_code` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id_customers`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+-- таблица физ лиц
+CREATE TABLE IF NOT EXISTS `bank_hw`.`individual` (
+  `cust_id` INT(10) UNSIGNED NOT NULL,
+  `fname` VARCHAR(45) NOT NULL,
+  `lname` VARCHAR(45) NOT NULL,
+  `birthday` DATE NOT NULL,
+  INDEX `fk_user_customers_idx` (`cust_id` ASC) VISIBLE,
+  PRIMARY KEY (`cust_id`),
+  CONSTRAINT `fk_user_customers`
+    FOREIGN KEY (`cust_id`)
+    REFERENCES `bank_hw`.`customers` (`id_customers`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+-- таблица юрлиц
+CREATE TABLE IF NOT EXISTS `bank_hw`.`buisnese` (
+  `cust_id` INT(10) UNSIGNED NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `telephon` VARCHAR(10) NOT NULL,
+  `incorp_date` DATE NOT NULL,
+  INDEX `fk_table3_customers1_idx` (`cust_id` ASC) VISIBLE,
+  PRIMARY KEY (`cust_id`),
+  CONSTRAINT `fk_table3_customers1`
+    FOREIGN KEY (`cust_id`)
+    REFERENCES `bank_hw`.`customers` (`id_customers`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
