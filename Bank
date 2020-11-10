@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2020-11-10 14:19
+-- Generated: 2020-11-10 14:38
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -56,6 +56,8 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`account` (
   `account_id` INT(10) UNSIGNED NOT NULL,
   `customers_id` INT(10) UNSIGNED NOT NULL,
   `product_product_id` INT(11) NOT NULL,
+  `open_employee_id` INT(11) NOT NULL COMMENT 'айди сотрудника, который открыл',
+  `open_branch_id` INT(11) NOT NULL,
   `open_date` DATE NOT NULL,
   `close_date` DATE NULL DEFAULT NULL,
   `last_activity_date` DATE NOT NULL,
@@ -64,6 +66,8 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`account` (
   PRIMARY KEY (`account_id`),
   INDEX `fk_account_customers1_idx` (`customers_id` ASC) VISIBLE,
   INDEX `fk_account_product1_idx` (`product_product_id` ASC) VISIBLE,
+  INDEX `fk_account_employee1_idx` (`open_employee_id` ASC) VISIBLE,
+  INDEX `fk_account_branch1_idx` (`open_branch_id` ASC) VISIBLE,
   CONSTRAINT `fk_account_customers1`
     FOREIGN KEY (`customers_id`)
     REFERENCES `bank_hw`.`customers` (`id_customers`)
@@ -72,6 +76,16 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`account` (
   CONSTRAINT `fk_account_product1`
     FOREIGN KEY (`product_product_id`)
     REFERENCES `bank_hw`.`product` (`product_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_account_employee1`
+    FOREIGN KEY (`open_employee_id`)
+    REFERENCES `bank_hw`.`employee` (`employee_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_account_branch1`
+    FOREIGN KEY (`open_branch_id`)
+    REFERENCES `bank_hw`.`branch` (`branch_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -103,26 +117,47 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`table7` (
-)
+CREATE TABLE IF NOT EXISTS `bank_hw`.`department` (
+  `dept_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`dept_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`table8` (
-)
+CREATE TABLE IF NOT EXISTS `bank_hw`.`employee` (
+  `employee_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `department_dept_id` INT(11) NOT NULL,
+  `fname` VARCHAR(45) NOT NULL,
+  `lname` VARCHAR(45) NOT NULL,
+  `start_date` DATE NOT NULL COMMENT 'дата начала работы',
+  `finish_date` DATE NULL DEFAULT NULL COMMENT 'дата окончания работы',
+  PRIMARY KEY (`employee_id`),
+  INDEX `fk_employee_department1_idx` (`department_dept_id` ASC) VISIBLE,
+  CONSTRAINT `fk_employee_department1`
+    FOREIGN KEY (`department_dept_id`)
+    REFERENCES `bank_hw`.`department` (`dept_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`table9` (
-)
+CREATE TABLE IF NOT EXISTS `bank_hw`.`branch` (
+  `branch_id` INT(11) NOT NULL,
+  PRIMARY KEY (`branch_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `bank_hw`.`table10` (
-)
+CREATE TABLE IF NOT EXISTS `bank_hw`.`transaction` (
+  `account_id` INT(10) UNSIGNED NOT NULL,
+  INDEX `fk_transaction_account1_idx` (`account_id` ASC) VISIBLE,
+  CONSTRAINT `fk_transaction_account1`
+    FOREIGN KEY (`account_id`)
+    REFERENCES `bank_hw`.`account` (`account_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
