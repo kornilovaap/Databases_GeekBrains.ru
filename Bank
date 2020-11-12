@@ -522,3 +522,9 @@ WHERE e.start_date <= '2015-01-01'
 AND (e.lname regexp '^[AB]')
 AND b.name = 'qui';
 
+--Находим всех сотрудников, которые открыли больше 2 счетов
+SELECT open_employee_fk, COUNT(*) how_many
+FROM account
+GROUP BY open_employee_fk
+HAVING COUNT(*) > 2;
+
