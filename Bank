@@ -528,3 +528,10 @@ FROM account
 GROUP BY open_employee_fk
 HAVING COUNT(*) > 2;
 
+-- Находим только для "автивных" счетов сумму по типу счетов и выводим сумму. находящуюся между 1000 и 10`000
+SELECT prod_id_fk, SUM(balance) as balance
+FROM account
+WHERE status = 'ACTIVE'
+GROUP BY prod_id_fk
+HAVING MIN(balance) > 1000
+   AND MAX(balance) < 10000;
