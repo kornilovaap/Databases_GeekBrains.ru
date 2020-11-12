@@ -511,5 +511,14 @@ INSERT INTO `transaction` (`transaction_id`, `account_id_fk`, `emp_id_fk`, `bran
 
 
 
-
+-- ШАГ 3: выборки
+-- Находим все счета, которые отктыты сотрудниками, нанятыми до 2015 и работающими в отеделении с названием 'qui', чьи фамилии начинаются на А или В.
+SELECT a.account_id, a.cust_id_fk, a.open_date, a.prod_id_fk
+FROM account a INNER JOIN employee e
+ON a.open_employee_fk = e.employee_id
+INNER JOIN branch b
+ON e.branch_id_fk = b.branch_id
+WHERE e.start_date <= '2015-01-01'
+AND (e.lname regexp '^[AB]')
+AND b.name = 'qui';
 
