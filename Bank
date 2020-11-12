@@ -7,6 +7,54 @@
 -- ШАГ 1 - ЭТО ДАМП, СОЗДАННЫЙ ИЗ ДИАГРАММЫ
 -- вот ссылка на фото https://github.com/kornilovaap/Databases_GeekBrains/blob/master/%D0%91%D0%90%D0%9D%D0%9A_%D0%B4%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.png
 
+-- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: bank_hw
+-- ------------------------------------------------------
+-- Server version	8.0.21
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `account`
+--
+
+DROP TABLE IF EXISTS `account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `account` (
+  `account_id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Счет',
+  `cust_id_fk` int unsigned NOT NULL,
+  `prod_id_fk` int unsigned NOT NULL,
+  `open_employee_fk` int unsigned NOT NULL COMMENT 'айди сотрудника, который открыл',
+  `open_branch_fk` int unsigned NOT NULL,
+  `open_date` date NOT NULL,
+  `close_date` date DEFAULT NULL,
+  `last_activity_date` date NOT NULL,
+  `status` enum('ACTIVE','CLOSED','FROZEN') NOT NULL COMMENT 'три вида статуса: ''ACTIVE'', ''CLOSED'', ''FROZEN''',
+  `balance` float(10,2) DEFAULT NULL,
+  PRIMARY KEY (`account_id`),
+  UNIQUE KEY `account_id_UNIQUE` (`account_id`),
+  KEY `fk_account_customers1_idx` (`cust_id_fk`),
+  KEY `fk_account_product1_idx` (`prod_id_fk`),
+  KEY `fk_account_employee1_idx` (`open_employee_fk`),
+  KEY `fk_account_branch1_idx` (`open_branch_fk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account`
+--
+
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
@@ -250,5 +298,121 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 
--- ШАГ 2 - ДОБАВЛЯЮ ДАННЫЕ В ТАБЛИЦУ
+
+
+
+-- ШАГ 2 - ДОБАВЛЯЮ ДАННЫЕ В ТАБЛИЦУ через filldb
+-- 1)
+DROP TABLE IF EXISTS `customers`;
+CREATE TABLE `customers` (
+  `id_customers` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cust_type` enum('I','B') COLLATE utf8_unicode_ci NOT NULL COMMENT 'Два вида клиентов в банке: I - физ лица и B - юр лица',
+  `city` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `adress` varchar(245) COLLATE utf8_unicode_ci NOT NULL,
+  `post_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id_customers`)
+);
+
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (1, 'B', 'West Kole', '6545 Tatum Orchard\nNew Roslyn, AR 39003-0803', '4683597652');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (2, 'B', 'Lake Bereniceport', '3850 Devyn Rapids Suite 025\nNorth Maurice, SD 77110-2536', '4748118537');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (3, 'B', 'North Estellbury', '3759 Orville Glens\nFrancomouth, WY 23319-4987', '2790914010');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (4, 'B', 'Marcfurt', '434 Stroman Club\nLake Susana, TN 13336', '3184260813');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (5, 'I', 'Melbaberg', '670 Antonina Brooks\nNew Zora, NJ 16257', '1974206108');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (6, 'I', 'Port Hershelville', '452 Gislason Lock\nShermanville, DC 08431-5123', '1801889136');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (7, 'B', 'North Cristopher', '89599 Edison Cliffs\nAndresfort, TX 23425', '9541646332');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (8, 'I', 'Alexiestad', '9068 Rutherford Terrace\nPort Savion, AL 82226-1801', '2556400102');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (9, 'I', 'Rickiehaven', '215 Skiles Port\nLake Luigistad, WI 21504-3795', '1661433501');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (10, 'B', 'New Salmaland', '55952 Dibbert Square Apt. 211\nWardville, CT 07001', '1133467449');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (11, 'I', 'East Kurt', '61702 Daryl Hills Apt. 413\nStromanmouth, NV 31418-8359', '5300151711');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (12, 'I', 'South Fredericview', '166 Rice Drives Suite 113\nLake Lolitaport, KS 29804-6403', '6072795424');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (13, 'B', 'Axelberg', '00904 Koelpin Throughway Suite 923\nNew Marcellus, OH 36902-7544', '5834493533');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (14, 'I', 'Lafayettebury', '51501 Lockman Manor\nWest Camillefort, MT 79911', '3478574101');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (15, 'I', 'Mollieburgh', '670 Emile Garden Suite 111\nVivianhaven, LA 92416-0016', '3009765246');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (16, 'B', 'Gertrudeport', '829 Austen Radial\nMaudberg, KY 69156-1900', '8778591848');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (17, 'I', 'Port Lonzochester', '5788 Baylee Forge Apt. 832\nRickeyview, AR 57652', '8115298783');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (18, 'B', 'North Kory', '82927 Stamm Brooks Apt. 298\nEast Marysemouth, NJ 84441', '6912976468');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (19, 'B', 'Kearaview', '5388 Hills Springs Apt. 595\nKeelingtown, TN 40294-6858', '4949497411');
+INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (20, 'B', 'Wolfport', '6517 Roberts Mall\nJacklynton, MO 11789', '4956243062');
+
+
+-- 2)
+-- здесь пришлось немного схитрить. поскольку у меня пользователи двух видов (юр и физ), я посчитала, сколько сделалось какого вида и столько потом сделала строк
+DROP TABLE IF EXISTS `person`;
+CREATE TABLE `person` (
+  `cust_id` int(10) unsigned NOT NULL,
+  `fname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `lname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `birthday` date NOT NULL,
+  PRIMARY KEY (`cust_id`)
+);
+
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (5, 'et', 'est', '2001-05-01');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (6, 'in', 'vero', '2009-11-14');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (8, 'optio', 'porro', '2020-09-01');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (9, 'eos', 'et', '1994-03-09');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (11, 'illo', 'ut', '2013-01-20');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (12, 'quos', 'vero', '2011-02-21');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (14, 'explicabo', 'culpa', '2010-05-08');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (15, 'ipsa', 'at', '1997-05-20');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (17, 'consequatur', 'vel', '2016-12-09');
+
+
+-- 3)
+DROP TABLE IF EXISTS `buisnese`;
+CREATE TABLE `buisnese` (
+  `cust_id_fk` int(10) unsigned NOT NULL COMMENT 'юр лицо, подтип кастомер',
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `telephon` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `incorp_date` date NOT NULL,
+  PRIMARY KEY (`cust_id_fk`)
+);
+
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (1, 'nam', '9999423078', '1992-10-02');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (2, 'ut', '9912480408', '1995-06-24');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (3, 'quibusdam', '9964957438', '1996-06-01');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (4, 'dolorem', '9952150891', '2005-06-01');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (7, 'sit', '9926554472', '1974-04-12');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (10, 'quas', '9951315216', '2000-07-15');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (13, 'natus', '9911794301', '1975-01-25');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (16, 'sed', '9981234386', '2016-07-22');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (18, 'rem', '9916263898', '1973-06-06');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (19, 'ea', '9999387827', '1996-11-15');
+INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (20, 'fuga', '9959427130', '1977-03-14');
+
+
+-- 4)
+
+DROP TABLE IF EXISTS `branch`;
+CREATE TABLE `branch` (
+  `branch_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `adress` varchar(245) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`branch_id`)
+);
+
+INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (1, 'provident', '41943 Camden Alley Apt. 576\nEast Brant, OK 33189', 'South Lucileborough');
+INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (2, 'qui', '057 Legros Meadows\nHodkiewiczstad, DE 04570-9925', 'New Mathildeland');
+INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (3, 'numquam', '81748 Allie Cove\nLynchborough, IL 57335-6159', 'Tellyside');
+INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (4, 'eius', '382 McClure Shoal\nLake Cordelia, NH 96333', 'North Soniaton');
+INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (5, 'aut', '7284 Cordie Gardens\nOscarfort, FL 79337-4596', 'Ashleebury');
+INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (6, 'autem', '346 Stracke Corner\nFraneckiview, NM 22301', 'West Erikmouth');
+INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (7, 'autem', '04147 Ernestine Spring Suite 894\nPort Vincenza, AZ 23821-3301', 'East Helen');
+INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (8, 'non', '81219 Magdalena Keys\nJaystad, AK 24859-2299', 'East Lyla');
+
+
+-- 5)
+DROP TABLE IF EXISTS `department`;
+CREATE TABLE `department` (
+  `dept_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`dept_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `department` (`dept_id`, `name`) VALUES (1, 'aut');
+INSERT INTO `department` (`dept_id`, `name`) VALUES (2, 'non');
+INSERT INTO `department` (`dept_id`, `name`) VALUES (3, 'quia');
+INSERT INTO `department` (`dept_id`, `name`) VALUES (4, 'eveniet');
+
+
 
