@@ -7,22 +7,19 @@
 -- ШАГ 1 - СОЗДАНИЕ САМОЙ БАЗЫ
 -- вот ссылка на фото https://github.com/kornilovaap/Databases_GeekBrains/blob/master/%D0%91%D0%90%D0%9D%D0%9A_%D0%B4%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.png
 
--- MySQL Workbench Forward Engineering
 
+-- MySQL Workbench Forward Engineering
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
 -- Schema bank_hw
 -- -----------------------------------------------------
-
 -- -----------------------------------------------------
 -- Schema bank_hw
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `bank_hw` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `bank_hw` ;
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`branch`
 -- -----------------------------------------------------
@@ -36,8 +33,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`branch` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`customers`
 -- -----------------------------------------------------
@@ -52,8 +47,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`customers` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`department`
 -- -----------------------------------------------------
@@ -64,8 +57,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`department` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`employee`
 -- -----------------------------------------------------
@@ -92,8 +83,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`employee` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`product_type`
 -- -----------------------------------------------------
@@ -105,8 +94,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`product_type` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`product`
 -- -----------------------------------------------------
@@ -124,8 +111,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`product` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`account`
 -- -----------------------------------------------------
@@ -161,8 +146,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`account` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`buisness`
 -- -----------------------------------------------------
@@ -180,8 +163,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`buisness` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`person`
 -- -----------------------------------------------------
@@ -199,8 +180,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`person` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `bank_hw`.`transaction`
 -- -----------------------------------------------------
@@ -232,8 +211,6 @@ CREATE TABLE IF NOT EXISTS `bank_hw`.`transaction` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -273,7 +250,6 @@ INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_co
 INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (19, 'B', 'Kearaview', '5388 Hills Springs Apt. 595\nKeelingtown, TN 40294-6858', '4949497411');
 INSERT INTO `customers` (`id_customers`, `cust_type`, `city`, `adress`, `post_code`) VALUES (20, 'B', 'Wolfport', '6517 Roberts Mall\nJacklynton, MO 11789', '4956243062');
 
-
 -- 2)
 -- здесь пришлось немного схитрить. поскольку у меня пользователи двух видов (юр и физ), я посчитала, сколько сделалось какого вида и столько потом сделала строк
 DROP TABLE IF EXISTS `person`;
@@ -285,7 +261,7 @@ CREATE TABLE `person` (
   PRIMARY KEY (`cust_id`)
 );
 
-INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (5, 'et', 'est', '2001-05-01');
+INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (5, 'Ivan', 'Ivanov', '2001-05-01');
 INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (6, 'in', 'vero', '2009-11-14');
 INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (8, 'optio', 'porro', '2020-09-01');
 INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (9, 'eos', 'et', '1994-03-09');
@@ -294,7 +270,6 @@ INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (12, 'quos
 INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (14, 'explicabo', 'culpa', '2010-05-08');
 INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (15, 'ipsa', 'at', '1997-05-20');
 INSERT INTO `person` (`cust_id`, `fname`, `lname`, `birthday`) VALUES (17, 'consequatur', 'vel', '2016-12-09');
-
 
 -- 3)
 DROP TABLE IF EXISTS `buisnese`;
@@ -318,7 +293,6 @@ INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES 
 INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (19, 'ea', '9999387827', '1996-11-15');
 INSERT INTO `buisnese` (`cust_id_fk`, `name`, `telephon`, `incorp_date`) VALUES (20, 'fuga', '9959427130', '1977-03-14');
 
-
 -- 4)
 
 DROP TABLE IF EXISTS `branch`;
@@ -334,7 +308,6 @@ INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (1, 'provide
 INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (2, 'qui', '057 Legros Meadows\nHodkiewiczstad, DE 04570-9925', 'New Mathildeland');
 INSERT INTO `branch` (`branch_id`, `name`, `adress`, `city`) VALUES (3, 'numquam', '81748 Allie Cove\nLynchborough, IL 57335-6159', 'Tellyside');
 
-
 -- 5)
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
@@ -347,7 +320,6 @@ INSERT INTO `department` (`dept_id`, `name`) VALUES (1, 'aut');
 INSERT INTO `department` (`dept_id`, `name`) VALUES (2, 'non');
 INSERT INTO `department` (`dept_id`, `name`) VALUES (3, 'quia');
 INSERT INTO `department` (`dept_id`, `name`) VALUES (4, 'eveniet');
-
 
 -- 6)
 DROP TABLE IF EXISTS `employee`;
@@ -370,7 +342,6 @@ INSERT INTO `employee` (`employee_id`, `dept_id_fk`, `fname`, `lname`, `start_da
 INSERT INTO `employee` (`employee_id`, `dept_id_fk`, `fname`, `lname`, `start_date`, `finish_date`) VALUES (7, 1, 'est', 'deleniti', '1983-06-04', '1988-02-27');
 INSERT INTO `employee` (`employee_id`, `dept_id_fk`, `fname`, `lname`, `start_date`, `finish_date`) VALUES (8, 4, 'minus', 'maxime', '2016-01-10', '2019-09-02');
 
-
 -- 7)
 DROP TABLE IF EXISTS `product_type`;
 CREATE TABLE `product_type` (
@@ -382,7 +353,6 @@ CREATE TABLE `product_type` (
 INSERT INTO `product_type` (`product_type_id`, `name`) VALUES (101247, 'omnis');
 INSERT INTO `product_type` (`product_type_id`, `name`) VALUES (203821, 'blanditiis');
 INSERT INTO `product_type` (`product_type_id`, `name`) VALUES (277441, 'amet');
-
 
 -- 8)
 DROP TABLE IF EXISTS `product`;
@@ -404,7 +374,6 @@ INSERT INTO `product` (`product_id`, `name`, `product_type_id`, `date_offered`) 
 INSERT INTO `product` (`product_id`, `name`, `product_type_id`, `date_offered`) VALUES (8, 'voluptates', 2, '1993-11-13');
 INSERT INTO `product` (`product_id`, `name`, `product_type_id`, `date_offered`) VALUES (9, 'maiores', 1, '1993-10-22');
 INSERT INTO `product` (`product_id`, `name`, `product_type_id`, `date_offered`) VALUES (10, 'autem', 2, '2010-10-21');
-
 
 -- 9)
 DROP TABLE IF EXISTS `account`;
@@ -443,9 +412,7 @@ INSERT INTO `account` (`account_id`, `cust_id_fk`, `prod_id_fk`, `open_employee_
 INSERT INTO `account` (`account_id`, `cust_id_fk`, `prod_id_fk`, `open_employee_fk`, `open_branch_fk`, `open_date`, `close_date`, `last_activity_date`, `status`, `balance`) VALUES (19, 19, 7, 7, 1, '2012-12-08', '2014-09-15', '2019-12-12', 'FROZEN', '0.00');
 INSERT INTO `account` (`account_id`, `cust_id_fk`, `prod_id_fk`, `open_employee_fk`, `open_branch_fk`, `open_date`, `close_date`, `last_activity_date`, `status`, `balance`) VALUES (20, 14, 8, 3, 1, '2005-08-26', '1978-08-08', '1991-08-20', 'CLOSED', '0.00');
 
-
 -- 10)
-
 DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
   `transaction_id` int(10) unsigned NOT NULL,
@@ -535,3 +502,31 @@ WHERE status = 'ACTIVE'
 GROUP BY prod_id_fk
 HAVING MIN(balance) > 1000
    AND MAX(balance) < 10000;
+
+-- Находим все счета, размер которых меньше, чем счет пользователя Ivan Ivanov
+SELECT account_id, cust_id_fk, prod_id_fk, balance
+FROM account
+WHERE balance < ALL (
+	SELECT a.balance
+	FROM account a INNER JOIN person p
+	ON a.cust_id_fk = p.cust_id
+	WHERE p.fname = 'Ivan' AND p.lname = 'Ivanov');
+
+
+
+-- ШАГ 4: представления
+CREATE VIEW employee_view AS
+	SELECT employee_id, fname, lname, YEAR(start_date) as start_year
+	FROM employee;
+  
+ CREATE VIEW account_view AS
+	SELECT account_id, last_activity_date, status
+	FROM account;
+  
+  
+  
+  -- ШАГ 5: триггеры
+  
+  
+  
+  
