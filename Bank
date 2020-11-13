@@ -525,8 +525,3 @@ CREATE VIEW employee_view AS
   
   
   
-  -- ШАГ 5: триггеры
-  
-  
-  
-  
