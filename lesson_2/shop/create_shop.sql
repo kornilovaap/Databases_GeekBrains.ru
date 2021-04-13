@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS catalogs;
 CREATE TABLE catalogs (
-  id INT UNSIGNED NOT NULL,
+  id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) COMMENT 'Название раздела'
+  /*PRIMARY KEY(id, name(10))  --индекс не обязательно должен быть объявлен по одному столбцу. тут id + первые 10 символов столбца*/
 ) COMMENT = 'Разделы интернет магазина';
 
 DROP TABLE IF EXISTS users;
