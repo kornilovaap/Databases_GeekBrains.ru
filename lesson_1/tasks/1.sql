@@ -11,4 +11,11 @@ describe users; -- проверили содержимое таблицы
 insert into users values (1, 'Anna');
 insert into users values (2, 'Ivan'); -- добавили пару строчек в таблицу
 select * from users; -- проверили таблицу
-    
+__________________
++----+------+
+| id | name |
++----+------+
+|  1 | Anna |
+|  2 | Ivan |
++----+------+
+                                                                
