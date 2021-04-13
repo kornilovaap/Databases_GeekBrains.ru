@@ -7,7 +7,7 @@ CREATE TABLE catalogs (
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-  id INT UNSIGNED NOT NULL,
+  id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) COMMENT 'Имя покупателя',
   birthday_at DATE COMMENT 'Дата рождения',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,   -- без этого будет автоматически присваиваться текущая дата
@@ -16,7 +16,7 @@ CREATE TABLE users (
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
-  id INT UNSIGNED NOT NULL,
+  id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) COMMENT 'Название',
   desription TEXT COMMENT 'Описание',
   price DECIMAL (11,2) COMMENT 'Цена',
