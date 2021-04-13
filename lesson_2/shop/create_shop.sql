@@ -5,24 +5,11 @@ CREATE TABLE catalogs (
   UNIQUE unique_name(name(10))
 ) COMMENT = 'Разделы интернет-магазина';
 
-INSERT INTO catalogs VALUES
-  (DEFAULT, 'Процессоры'),
-  (DEFAULT, 'Мат.платы'),
-  (DEFAULT, 'Видеокарты');
-
 DROP TABLE IF EXISTS cat;
 CREATE TABLE cat (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255)
 );
-
-INSERT INTO
-  cat
-SELECT
-  *
-FROM
-  catalogs;
-SELECT * FROM cat;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -95,4 +82,20 @@ CREATE TABLE storehouses_products (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) COMMENT = 'Запасы на складе';
-    
+                     
+/*проверка таблиц*/
+show tables;
++----------------------+
+| Tables_in_shop       |
++----------------------+
+| cat                  |
+| catalogs             |
+| discounts            |
+| orders               |
+| orders_products      |
+| products             |
+| storehouses          |
+| storehouses_products |
+| users                |
++----------------------+
+                           
