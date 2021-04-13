@@ -24,3 +24,5 @@ describe products;
 | updated_at | datetime        | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
 +------------+-----------------+------+-----+-------------------+-----------------------------------------------+
     
+DROP INDEX index_of_catalog_id ON products;
+   
