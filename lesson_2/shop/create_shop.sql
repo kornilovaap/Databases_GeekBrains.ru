@@ -9,8 +9,8 @@ CREATE TABLE users (
   id INT UNSIGNED NOT NULL,
   name VARCHAR(255) COMMENT 'Имя покупателя',
   birthday_at DATE COMMENT 'Дата рождения',
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,   -- без этого будет автоматически присваиваться текущая дата
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP --для автоматического обновления даты
 ) COMMENT = 'Покупатели';
 
 DROP TABLE IF EXISTS products;
@@ -37,7 +37,7 @@ CREATE TABLE orders_products (
   id INT UNSIGNED NOT NULL,
   order_id INT UNSIGNED,
   product_id INT UNSIGNED,
-  total INT UNSIGNED DEFAULT 1 COMMENT 'Количество заказанных товарных позиций',
+  total INT UNSIGNED DEFAULT 1 COMMENT 'Количество заказанных товарных позиций',  --подставляется значение 1, если др не задано
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) COMMENT = 'Состав заказа';
