@@ -11,7 +11,7 @@ INSERT INTO catalogs VALUES
   (DEFAULT, 'Видеокарты');
   
 insert into catalogs values 
-	(null, null),
+    (null, null),
     (null, null),
     (null, null);
     
