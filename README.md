@@ -4,10 +4,11 @@
 Сертификат о прохождении курса https://gb.ru/certificates/1009803
 
 _________
-:information_source:
+:information_source:             
 В ходе курса создаются две базы данных: shop и vkontakte
 папка tasks - моё решение домашних заданий   
 папка lessons - выполнение заданий из видео-лекций   
+Moй итоговый проект БД [Bank]()
 всего 12 уроков по 1,5 часа    
 :information_source:
 _________
