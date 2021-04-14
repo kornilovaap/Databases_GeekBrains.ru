@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS catalogs;
 CREATE TABLE catalogs (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) COMMENT 'Название раздела'
+  name VARCHAR(255) COMMENT 'Название раздела',
+  UNIQUE unique_name(name(10))
 ) COMMENT = 'Разделы интернет магазина';
 
 DROP TABLE IF EXISTS users;
