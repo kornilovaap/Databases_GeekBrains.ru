@@ -28,9 +28,9 @@ _________
 3. Индексы.     
 4. CRUD-операции     
     
-### [Урок 3. Введение в проектирование БД]()     
+### [Урок 3. Введение в проектирование БД](https://github.com/kornilovaap/Databases_GeekBrains.ru/tree/master/lesson_3)     
 1. Проектирование БД.    
     
-### [Урок 4. CRUD-операции]()    
+### [Урок 4. CRUD-операции](https://github.com/kornilovaap/Databases_GeekBrains.ru/tree/master/lesson_4)    
 1. CRUD-операции.    
 
