@@ -105,4 +105,5 @@ CREATE TABLE `users_communities` (
   KEY `fk_users_communities_communities1_idx` (`community_id`),
   CONSTRAINT `fk_users_communities_communities1` FOREIGN KEY (`community_id`) REFERENCES `communities` (`id`),
   CONSTRAINT `fk_users_communities_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ;
+) ;      
+        
