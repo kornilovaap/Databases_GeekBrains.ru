@@ -202,7 +202,8 @@ INSERT INTO `profiles` (`users_id`, `gender`, `birthday`, `location`, `created_a
 INSERT INTO `profiles` (`users_id`, `gender`, `birthday`, `location`, `created_at`) VALUES (99, 'f', '2000-04-12', '6654 Conor Harbor\nReyborough, NJ 99556', '1991-05-12 00:04:16');
 INSERT INTO `profiles` (`users_id`, `gender`, `birthday`, `location`, `created_at`) VALUES (100, 'm', '2009-11-29', '54992 Agustina Centers Apt. 857\nAlizehaven, SD 68953', '1994-12-09 13:11:45');
    
-       
+     
+         
 INSERT INTO `photo_albums` (`id`, `name`, `decs`, `user_id`) VALUES (1, 'sed', NULL, 1);
 INSERT INTO `photo_albums` (`id`, `name`, `decs`, `user_id`) VALUES (2, 'quia', NULL, 2);
 INSERT INTO `photo_albums` (`id`, `name`, `decs`, `user_id`) VALUES (3, 'quod', NULL, 3);
@@ -304,11 +305,15 @@ INSERT INTO `photo_albums` (`id`, `name`, `decs`, `user_id`) VALUES (98, 'dolori
 INSERT INTO `photo_albums` (`id`, `name`, `decs`, `user_id`) VALUES (99, 'laboriosam', NULL, 99);
 INSERT INTO `photo_albums` (`id`, `name`, `decs`, `user_id`) VALUES (100, 'expedita', NULL, 100);    
      
+          
+                   
 INSERT INTO `media_types` (`id`, `name`) VALUES (1, 'img');
 INSERT INTO `media_types` (`id`, `name`) VALUES (2, 'video');
 INSERT INTO `media_types` (`id`, `name`) VALUES (3, 'music');
 INSERT INTO `media_types` (`id`, `name`) VALUES (4, 'text');
-
+             
+                        
+                                    
 INSERT INTO `messages` (`id`, `from_user_id`, `to_user_id`, `text`, `created_at`) VALUES (1, 44, 23, 'Voluptates voluptas in molestiae enim eius magnam.', '1980-04-05 13:44:54');
 INSERT INTO `messages` (`id`, `from_user_id`, `to_user_id`, `text`, `created_at`) VALUES (2, 5, 33, 'Voluptatem voluptatibus quo quia reiciendis nihil ratione.', '2012-03-11 20:48:50');
 INSERT INTO `messages` (`id`, `from_user_id`, `to_user_id`, `text`, `created_at`) VALUES (3, 58, 1, 'Dolorum maiores quia eum nihil laboriosam non eveniet.', '1991-01-18 18:36:40');
@@ -409,9 +414,9 @@ INSERT INTO `messages` (`id`, `from_user_id`, `to_user_id`, `text`, `created_at`
 INSERT INTO `messages` (`id`, `from_user_id`, `to_user_id`, `text`, `created_at`) VALUES (98, 93, 8, 'Impedit quia in tempore porro nemo dolores.', '2010-06-25 21:28:30');
 INSERT INTO `messages` (`id`, `from_user_id`, `to_user_id`, `text`, `created_at`) VALUES (99, 66, 16, 'Molestias quisquam temporibus enim repellendus nihil.', '2007-06-30 09:02:43');
 INSERT INTO `messages` (`id`, `from_user_id`, `to_user_id`, `text`, `created_at`) VALUES (100, 37, 36, 'Sed ullam aut sunt et et consectetur nihil.', '2002-06-23 19:49:54');
-      
-          
-
+            
+           
+                      
 INSERT INTO `media` (`id`, `media_type_id`, `text`, `file`, `size`, `metadata`) VALUES (1, 2, 'Sed facere rerum explicabo eius. Corporis enim quo vel nulla. Vel voluptas officia temporibus laborum odit quam.', NULL, 87523, NULL);
 INSERT INTO `media` (`id`, `media_type_id`, `text`, `file`, `size`, `metadata`) VALUES (2, 3, 'Quasi aspernatur mollitia sint modi. Repudiandae numquam harum sit ullam vel neque. Sit eveniet mollitia quasi ipsa vel placeat eum et. Quia qui quia aut sed unde ullam.', NULL, 8976, NULL);
 INSERT INTO `media` (`id`, `media_type_id`, `text`, `file`, `size`, `metadata`) VALUES (3, 3, 'Incidunt qui iure et accusamus ut tempora. A at quae quia dolor sed vitae.', NULL, 2, NULL);
@@ -512,7 +517,9 @@ INSERT INTO `media` (`id`, `media_type_id`, `text`, `file`, `size`, `metadata`) 
 INSERT INTO `media` (`id`, `media_type_id`, `text`, `file`, `size`, `metadata`) VALUES (98, 4, 'Nemo eum incidunt voluptates cumque. Fugit quod praesentium quia perspiciatis iste saepe. Pariatur in velit voluptatibus.', NULL, 0, NULL);
 INSERT INTO `media` (`id`, `media_type_id`, `text`, `file`, `size`, `metadata`) VALUES (99, 3, 'A omnis reiciendis molestiae occaecati beatae. Tenetur repellat voluptatem quae dolorum quod qui laborum. Maxime asperiores corrupti consectetur aliquam laborum dolor ut.', NULL, 9, NULL);
 INSERT INTO `media` (`id`, `media_type_id`, `text`, `file`, `size`, `metadata`) VALUES (100, 2, 'Voluptates accusamus praesentium facilis facilis quos perspiciatis. Occaecati sunt est provident similique iste qui sit. Et consequuntur est eligendi necessitatibus aut.', NULL, 1193623, NULL);    
-      
+       
+               
+                    
 INSERT INTO `communities` (`id`, `name`, `admin_id`) VALUES (1, 'voluptatibus', 97);
 INSERT INTO `communities` (`id`, `name`, `admin_id`) VALUES (2, 'voluptates', 40);
 INSERT INTO `communities` (`id`, `name`, `admin_id`) VALUES (3, 'voluptates', 39);
@@ -523,7 +530,9 @@ INSERT INTO `communities` (`id`, `name`, `admin_id`) VALUES (7, 'vel', 99);
 INSERT INTO `communities` (`id`, `name`, `admin_id`) VALUES (8, 'ducimus', 17);
 INSERT INTO `communities` (`id`, `name`, `admin_id`) VALUES (9, 'earum', 76);
 INSERT INTO `communities` (`id`, `name`, `admin_id`) VALUES (10, 'id', 70);     
-     
+      
+         
+           
 INSERT INTO `friend_requests` (`from_user_id`, `to_user_id`, `status`) VALUES (1, 43, 0);
 INSERT INTO `friend_requests` (`from_user_id`, `to_user_id`, `status`) VALUES (3, 13, 0);
 INSERT INTO `friend_requests` (`from_user_id`, `to_user_id`, `status`) VALUES (3, 37, 0);
@@ -623,7 +632,9 @@ INSERT INTO `friend_requests` (`from_user_id`, `to_user_id`, `status`) VALUES (9
 INSERT INTO `friend_requests` (`from_user_id`, `to_user_id`, `status`) VALUES (98, 62, 0);
 INSERT INTO `friend_requests` (`from_user_id`, `to_user_id`, `status`) VALUES (99, 2, 0);
 INSERT INTO `friend_requests` (`from_user_id`, `to_user_id`, `status`) VALUES (100, 76, 0);     
-     
+      
+             
+                
 INSERT INTO `photos` (`id`, `album_id`, `media_id`) VALUES (1, 83, 83);
 INSERT INTO `photos` (`id`, `album_id`, `media_id`) VALUES (2, 92, 92);
 INSERT INTO `photos` (`id`, `album_id`, `media_id`) VALUES (3, 59, 59);
@@ -724,7 +735,9 @@ INSERT INTO `photos` (`id`, `album_id`, `media_id`) VALUES (97, 89, 89);
 INSERT INTO `photos` (`id`, `album_id`, `media_id`) VALUES (98, 23, 23);
 INSERT INTO `photos` (`id`, `album_id`, `media_id`) VALUES (99, 25, 25);
 INSERT INTO `photos` (`id`, `album_id`, `media_id`) VALUES (100, 28, 28);     
-      
+        
+           
+              
 INSERT INTO `users_communities` (`community_id`, `user_id`) VALUES (1, 5);
 INSERT INTO `users_communities` (`community_id`, `user_id`) VALUES (1, 13);
 INSERT INTO `users_communities` (`community_id`, `user_id`) VALUES (1, 23);
